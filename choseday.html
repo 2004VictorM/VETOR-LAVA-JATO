@@ -50,7 +50,7 @@
     </style>
 </head>
 <body class="bg-[#181819] flex items-center justify-center min-h-screen">
-    <div class="text-center">
+    <div class="text-center w-full px-4">
         <h1 class="text-white text-xl mb-6">Qual o dia?</h1>
         <div class="space-y-4">
             <button class="button w-64" onclick="selectDay('Segunda')">SEGUNDA - FEIRA</button>
@@ -60,9 +60,9 @@
             <button class="button w-64" onclick="selectDay('Sexta')">SEXTA - FEIRA</button>
             <button class="button w-64" onclick="selectDay('Sabado')">SÁBADO</button>
         </div>
-        <div class="mt-6">
+        <div class="mt-6 flex flex-col items-center">
             <!-- Campo de entrada para o calendário -->
-            <input type="text" id="calendarInput" class="bg-gray-700 text-white rounded-full py-2 px-4 w-64 text-center" placeholder="Selecione uma data">
+            <input type="text" id="calendarInput" class="bg-gray-700 text-white rounded-full py-2 px-4 w-64 text-center placeholder-gray-400" placeholder="Selecione uma data">
         </div>
         <button id="confirmDayButton" class="button mt-4" style="display:none;" onclick="confirmDay()">Confirmar Dia</button>
         <p id="dayMessage" class="mt-4 text-red-500"></p>
