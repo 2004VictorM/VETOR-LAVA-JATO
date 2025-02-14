@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Login Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-black flex items-center justify-center min-h-screen">
+    <div class="text-center text-white">
+        <div class="mb-8">
+            <img alt="Logo" class="mx-auto" height="100" src="Site LavaJato\logo.png" width="100"/>
+        </div>
+        <h1 class="text-3xl font-bold mb-2">LOGIN</h1>
+        <p class="mb-8">Coloque seus dados para continuar</p>
+        <form id="loginForm">
+            <div class="mb-4">
+                <label class="block text-sm mb-2" for="name">NOME</label>
+                <input class="w-full px-4 py-2 border-2 border-orange-500 rounded-lg bg-black text-white" id="name" placeholder="nome" type="text" required/>
+            </div>
+            <div class="mb-8">
+                <label class="block text-sm mb-2" for="whatsapp">WHATSAPP</label>
+                <input class="w-full px-4 py-2 border-2 border-orange-500 rounded-lg bg-black text-white" id="whatsapp" placeholder="número" type="text" required/>
+            </div>
+            <button class="w-full py-2 bg-orange-500 text-white rounded-lg font-bold" type="submit">Confirmar</button>
+        </form>
+        <div class="mt-12">
+            <p class="text-xl font-bold">AGENDE A SUA</p>
+            <p class="text-xl font-bold text-orange-500">LAVAGEM</p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('loginForm').onsubmit = function(event) {
+        event.preventDefault();
+    
+    // Captura o nome e o telefone do formulário
+         const name = document.getElementById('name').value;
+        const whatsapp = document.getElementById('whatsapp').value;
+
+    // Armazena os dados no localStorage
+        localStorage.setItem('clientName', name);
+        localStorage.setItem('clientWhatsapp', whatsapp);
+
+    // Redirecionar para a próxima etapa
+        window.location.href = 'chosemodel.html';
+    };
+
+    </script>
+</body>
+</html>

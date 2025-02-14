@@ -1,0 +1,136 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Car Wash Options</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        /* Estilos do botão */
+        .button {
+            cursor: pointer;
+            position: relative;
+            padding: 10px 24px;
+            font-size: 18px;
+            color: #FF6600;
+            border: 2px solid #FF6600;
+            border-radius: 34px;
+            background-color: transparent;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+            overflow: hidden;
+        }
+        .button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 50px;
+            height: 50px;
+            border-radius: inherit;
+            scale: 0;
+            z-index: -1;
+            background-color: #FF6600;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+        .button:hover::before {
+            scale: 3;
+        }
+        .button:hover {
+            color: #212121;
+            scale: 1.1;
+            box-shadow: 0 0px 20px rgba(255, 102, 0, 0.4);
+        }
+        .button:active {
+            scale: 1;
+        }
+    </style>
+</head>
+<body class="bg-[#181819] text-white flex flex-col items-center justify-center min-h-screen">
+    <div class="text-center">
+        <h1 class="text-2xl font-bold mb-8">O que deseja?</h1>
+        <div class="space-y-4 w-80">
+            <button class="button flex justify-between items-center w-full px-6 py-3" onclick="selectService('Lavagem Externa Básica')">LAVAGEM EXTERNA BÁSICA <span class="price" id="LavagemExternaBásicaPrice">R$ 0,00</span></button>
+            <button class="button flex justify-between items-center w-full px-6 py-3" onclick="selectService('Lavagem Externa Completa')">LAVAGEM EXTERNA COMPLETA <span class="price" id="LavagemExternaCompletaPrice">R$ 0,00</span></button>
+            <button class="button flex justify-between items-center w-full px-6 py-3" id="HigienizaçãoInternaButton" onclick="selectService('Higienização Interna')">HIGIENIZAÇÃO INTERNA <span class="price" id="HigienizaçãoInternaPrice">R$ 0,00</span></button>
+            <button class="button flex justify-between items-center w-full px-6 py-3" onclick="selectService('Lavagem Completa + Higienização')">LAVAGEM COMPLETA + HIGIENIZAÇÃO <span class="price" id="LavagemCompleta+HigienizaçãoPrice">R$ 0,00</span></button>
+            <button class="button flex justify-between items-center w-full px-6 py-3" onclick="selectService('Ducha')">DUCHA <span class="price" id="DuchaPrice">R$ 0,00</span></button>
+        </div>
+        <p id="serviceMessage" class="mt-4 text-red-500"></p>
+    </div>
+    <script>
+        const modelPrices = {
+            'Hatch': {
+                'Lavagem Externa Básica': 20.00,
+                'Lavagem Externa Completa': 35.00,
+                'Higienização Interna': 21.00,
+                'Lavagem Completa + Higienização': 40.00,
+                'Ducha': 15.00
+            },
+            'Sedan': {
+                'Lavagem Externa Básica': 30.00,
+                'Lavagem Externa Completa': 45.00,
+                'Higienização Interna': 25.00,
+                'Lavagem Completa + Higienização': 60.00,
+                'Ducha': 15.00
+            },
+            'SUV/Pickup': {
+                'Lavagem Externa Básica': 40.00,
+                'Lavagem Externa Completa': 50.00,
+                'Higienização Interna': 35.00,
+                'Lavagem Completa + Higienização': 70.00,
+                'Ducha': 23.00
+            },
+            'Moto': {
+                'Lavagem Externa Básica': 15.00,
+                'Lavagem Externa Completa': 25.00,
+                'Higienização Interna': 0.0,
+                'Lavagem Completa + Higienização': 30.00,
+                'Ducha': 10.00
+            }
+        };
+
+        let selectedModel = localStorage.getItem('selectedModel');
+        let selectedService = '';
+
+        function updatePrices() {
+            console.log('Função updatePrices chamada');
+            console.log('Modelo selecionado:', selectedModel);
+            console.log('Preços do modelo:', modelPrices[selectedModel]);
+            if(selectedModel == 'Moto'){
+                const hygieneButton = document.getElementById('HigienizaçãoInternaButton');
+                
+                if(hygieneButton){
+                    hygieneButton.style.display = 'none';
+                }
+            }   
+            if (selectedModel && modelPrices[selectedModel]) {
+                
+                console.log('Preços do modelo:', modelPrices[selectedModel]);
+                console.log('Função IF do updatePrices chamada');
+
+                for (const service in modelPrices[selectedModel]) {
+
+                    const serviceId = service.replace(/\s+/g, '') + 'Price';  // Declare a variável aqui
+                    console.log('ID do serviço:', serviceId); // Verifique o ID gerado
+                    const priceElement = document.getElementById(serviceId);
+                    if (priceElement) {
+                        priceElement.innerText = `R$ ${modelPrices[selectedModel][service].toFixed(2)}`;
+            
+                }
+
+                }
+            }
+        }
+
+        function selectService(service) {
+            selectedService = service;
+            localStorage.setItem('selectedService', service);
+            window.location.href = 'choseday.html';
+        }
+
+        // Chama a função para atualizar os preços ao carregar a página
+        updatePrices();
+    </script>
+</body>
+</html>

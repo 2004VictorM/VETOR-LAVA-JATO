@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day Selector</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Estilos do botão */
+        .button {
+            cursor: pointer;
+            position: relative;
+            padding: 10px 24px;
+            font-size: 18px;
+            color: #FF6600;
+            border: 2px solid #FF6600;
+            border-radius: 34px;
+            background-color: transparent;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+            overflow: hidden;
+        }
+        .button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 50px;
+            height: 50px;
+            border-radius: inherit;
+            scale: 0;
+            z-index: -1;
+            background-color: #FF6600;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+        .button:hover::before {
+            scale: 3;
+        }
+        .button:hover {
+            color: #212121;
+            scale: 1.1;
+            box-shadow: 0 0px 20px rgba(255, 102, 0, 0.4);
+        }
+        .button:active {
+            scale: 1;
+        }
+    </style>
+</head>
+<body class="bg-[#181819] flex items-center justify-center min-h-screen">
+    <div class="text-center">
+        <h1 class="text-white text-xl mb-6">Qual o dia?</h1>
+        <div class="space-y-4">
+            <button class="button w-64" onclick="selectDay('Segunda')">SEGUNDA - FEIRA</button>
+            <button class="button w-64" onclick="selectDay('Terça')">TERÇA - FEIRA</button>
+            <button class="button w-64" onclick="selectDay('Quarta')">QUARTA - FEIRA</button>
+            <button class="button w-64" onclick="selectDay('Quinta')">QUINTA - FEIRA</button>
+            <button class="button w-64" onclick="selectDay('Sexta')">SEXTA - FEIRA</button>
+            <button class="button w-64" onclick="selectDay('Sabado')">SÁBADO</button>
+        </div>
+        <div class="mt-6 flex items-center justify-center">
+            <span class="text-white mr-2">Usar calendário</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only peer" id="calendarToggle">
+                <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-orange-300 dark:peer-focus:ring-orange-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+            </label>
+        </div>
+        <button id="confirmDayButton" class="button mt-4" style="display:none;" onclick="confirmDay()">Confirmar Dia</button>
+        <p id="dayMessage" class="mt-4 text-red-500"></p>
+    </div>
+    <script>
+        let selectedDay = '';
+        let useCalendar = false;
+
+        document.getElementById('calendarToggle').addEventListener('change', function() {
+            useCalendar = this.checked;
+            if (useCalendar) {
+                // Lógica para abrir um calendário
+                alert('Calendário ativado!'); // Placeholder para a lógica do calendário
+            }
+        });
+
+        function selectDay(day) {
+            selectedDay = day;
+            if (!useCalendar) {
+                // Lógica para converter o dia da semana em data
+                const today = new Date();
+                const nextDay = new Date(today);
+                nextDay.setDate(today.getDate() + ((7 + (getDayIndex(day) - today.getDay())) % 7));
+                document.getElementById('dayMessage').innerText = `Você escolheu: ${nextDay.toLocaleDateString()}`;
+            } else {
+                document.getElementById('dayMessage').innerText = `Você escolheu: ${day}`;
+            }
+            document.getElementById('confirmDayButton').style.display = 'block';
+        }
+
+        function getDayIndex(day) {
+            const days = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+            return days.indexOf(day);
+        }
+
+        function confirmDay() {
+            localStorage.setItem('selectedDay', selectedDay);
+            window.location.href = 'chosehour.html';
+        }
+    </script>
+</body>
+</html>

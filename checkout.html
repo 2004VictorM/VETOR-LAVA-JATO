@@ -1,0 +1,160 @@
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos do botão */
+        .button-with-icon {
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #d95c02;
+            font-family: "Istok Web", sans-serif;
+            letter-spacing: 1px;
+            padding: 0 16px;
+            text-align: center;
+            width: 50px;
+            height: 50px;
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: normal;
+            border-radius: 50px;
+            outline: none;
+            user-select: none;
+            cursor: pointer;
+            transform: translateY(0px);
+            position: relative;
+            box-shadow:
+                inset 0 30px 30px -15px rgba(255, 255, 255, 0.1),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+                inset 0 1px 20px rgba(0, 0, 0, 0),
+                0 3px 0 #d95c02,
+                0 3px 2px rgba(0, 0, 0, 0.2),
+                0 5px 10px rgba(0, 0, 0, 0.1),
+                0 10px 20px rgba(0, 0, 0, 0.1);
+            background: #ff6d03;
+            color: white;
+            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+            transition: 150ms all ease-in-out;
+        }
+        .button-with-icon .icon {
+            margin-right: 5px;
+            width: 24px;
+            height: 24px;
+            transition: all 0.5s ease-in-out;
+        }
+        .button-with-icon:active {
+            transform: translateY(3px);
+            box-shadow:
+                inset 0 16px 2px -15px rgba(0, 0, 0, 0),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+                inset 0 1px 20px rgba(0, 0, 0, 0.1),
+                0 0 0 #d95c02,
+                0 0 0 2px rgba(255, 255, 255, 0.5),
+                0 0 0 rgba(0, 0, 0, 0),
+                0 0 0 rgba(0, 0, 0, 0);
+        }
+        .button-with-icon:hover .text {
+            transform: translateX(80px);
+        }
+        .button-with-icon:hover .icon {
+            transform: translate(23px);
+        }
+        .text {
+            transition: all 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-[#181819] flex items-center justify-center min-h-screen">
+    <div class="text-center text-white space-y-6">
+        <h1 class="text-xl font-bold">Confirme o seu pedido</h1>
+        
+        <div class="space-y-4">
+            <div>
+                <h2 class="text-lg font-semibold">Modelo</h2>
+                <div class="bg-gray-700 rounded-full py-2 px-4">
+                    <span class="text-orange-500" id="modelDisplay">--</span>
+                </div>
+            </div>
+            
+            <div>
+                <h2 class="text-lg font-semibold">Serviço</h2>
+                <div class="bg-gray-700 rounded-full py-2 px-4">
+                    <span class="text-orange-500" id="serviceDisplay">--</span>
+                </div>
+            </div>
+            
+            <div>
+                <h2 class="text-lg font-semibold">Data/Hora</h2>
+                <div class="bg-gray-700 rounded-full py-2 px-4">
+                    <span class="text-orange-500" id="dateDisplay">--</span>
+                </div>
+            </div>
+            
+            <div>
+                <h2 class="text-lg font-semibold">Valor</h2>
+                <div class="bg-gray-700 rounded-full py-2 px-4">
+                    <span class="text-orange-500" id="priceDisplay">--</span>
+                </div>
+            </div>
+        </div>
+        
+        <button class="button-with-icon" onclick="confirmOrder()">
+            <span class="text">OK</span>
+        </button>
+    </div>
+
+    <script>
+        const modelPrices = {
+            'Hatch': {
+                'Lavagem Externa Básica': 20.00,
+                'Lavagem Externa Completa': 35.00,
+                'Higienização Interna': 21.00,
+                'Lavagem Completa + Higienização': 40.00,
+                'Ducha': 15.00
+            },
+            'Sedan': {
+                'Lavagem Externa Básica': 30.00,
+                'Lavagem Externa Completa': 45.00,
+                'Higienização Interna': 25.00,
+                'Lavagem Completa + Higienização': 60.00,
+                'Ducha': 15.00
+            },
+            'SUV/Pickup': {
+                'Lavagem Externa Básica': 40.00,
+                'Lavagem Externa Completa': 50.00,
+                'Higienização Interna': 35.00,
+                'Lavagem Completa + Higienização': 70.00,
+                'Ducha': 23.00
+            }
+        };
+
+        const selectedModel = localStorage.getItem('selectedModel');
+        const selectedService = localStorage.getItem('selectedService');
+        const selectedDay = localStorage.getItem('selectedDay');
+        const selectedHour = localStorage.getItem('selectedHour');
+        const clientName = localStorage.getItem('clientName');
+
+        document.getElementById('modelDisplay').innerText = selectedModel;
+        document.getElementById('serviceDisplay').innerText = selectedService;
+        document.getElementById('dateDisplay').innerText = `${selectedDay} às ${selectedHour}`;
+
+        const price = modelPrices[selectedModel][selectedService];
+        document.getElementById('priceDisplay').innerText = `R$ ${price.toFixed(2)}`;
+
+        function confirmOrder() {
+            const message = `
+             » —— ╫  ❲ *CONFIRMAÇÃO DE AGENDAMENTO* ❳   ╫ —— « 
+              
+              ✎ *Nome* :\t${clientName}
+              ✎ *Data* :\t${selectedDay} às ${selectedHour}                                 
+              ✎ *Modelo* :\t${selectedModel}
+              ✎ *Serviço* :\t${selectedService}
+              ———————————————
+              *VALOR*: R$ ${price.toFixed(2)}`;
+            const whatsappLink = `https://wa.me/?text=${encodeURIComponent(message)}`;
+            window.open(whatsappLink, '_blank');
+        }
+    </script>
+</body>
+</html>
