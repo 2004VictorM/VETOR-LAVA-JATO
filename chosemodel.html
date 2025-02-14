@@ -2,6 +2,7 @@
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         /* Estilos do botão */
         .button {
@@ -16,6 +17,9 @@
             font-weight: 600;
             transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
             overflow: hidden;
+            width: 100%; /* Botão ocupa toda a largura */
+            max-width: 300px; /* Limita a largura máxima */
+            margin: 0 auto; /* Centraliza o botão */
         }
         .button::before {
             content: '';
@@ -44,13 +48,13 @@
     </style>
 </head>
 <body class="bg-[#1a1a1a] flex items-center justify-center min-h-screen">
-    <div class="text-center">
+    <div class="text-center w-full px-4">
         <h1 class="text-white text-xl font-semibold mb-8">Qual o modelo?</h1>
         <div class="space-y-4">
-            <button class="button w-64" onclick="selectModel('Hatch')">HATCH</button>
-            <button class="button w-64" onclick="selectModel('Sedan')">SEDAN</button>
-            <button class="button w-64" onclick="selectModel('SUV/Pickup')">SUV/PICKUP</button>
-            <button class="button w-64" onclick="selectModel('Moto')">MOTO</button>
+            <button class="button" onclick="selectModel('Hatch')">HATCH</button>
+            <button class="button" onclick="selectModel('Sedan')">SEDAN</button>
+            <button class="button" onclick="selectModel('SUV/Pickup')">SUV/PICKUP</button>
+            <button class="button" onclick="selectModel('Moto')">MOTO</button>
         </div>
     </div>
     <script>
