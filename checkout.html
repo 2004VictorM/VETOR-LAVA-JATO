@@ -161,7 +161,8 @@
               ✎ *Serviço* :\t${selectedService}
               ———————————————
               *VALOR*: R$ ${price.toFixed(2)}`;
-            const whatsappLink = `https://wa.me/?phone=5538998896714&numbertext=${encodeURIComponent(message)}`;
+            const phoneNumber = "5538998896714";
+            const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappLink, '_blank');
         }
     </script>
