@@ -5,6 +5,9 @@
     <title>Day Selector</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Adicionando o Flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <style>
         /* Estilos do botão */
         .button {
@@ -57,39 +60,34 @@
             <button class="button w-64" onclick="selectDay('Sexta')">SEXTA - FEIRA</button>
             <button class="button w-64" onclick="selectDay('Sabado')">SÁBADO</button>
         </div>
-        <div class="mt-6 flex items-center justify-center">
-            <span class="text-white mr-2">Usar calendário</span>
-            <label class="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" class="sr-only peer" id="calendarToggle">
-                <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-orange-300 dark:peer-focus:ring-orange-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
-            </label>
+        <div class="mt-6">
+            <!-- Campo de entrada para o calendário -->
+            <input type="text" id="calendarInput" class="bg-gray-700 text-white rounded-full py-2 px-4 w-64 text-center" placeholder="Selecione uma data">
         </div>
         <button id="confirmDayButton" class="button mt-4" style="display:none;" onclick="confirmDay()">Confirmar Dia</button>
         <p id="dayMessage" class="mt-4 text-red-500"></p>
     </div>
     <script>
         let selectedDay = '';
-        let useCalendar = false;
+        let selectedDate = '';
 
-        document.getElementById('calendarToggle').addEventListener('change', function() {
-            useCalendar = this.checked;
-            if (useCalendar) {
-                // Lógica para abrir um calendário
-                alert('Calendário ativado!'); // Placeholder para a lógica do calendário
+        // Configuração do Flatpickr
+        flatpickr("#calendarInput", {
+            dateFormat: "d/m/Y", // Formato da data
+            minDate: "today", // Impede seleção de datas passadas
+            onChange: function(selectedDates, dateStr, instance) {
+                selectedDate = dateStr; // Armazena a data selecionada
+                document.getElementById('dayMessage').innerText = `Você escolheu: ${dateStr}`;
+                document.getElementById('confirmDayButton').style.display = 'block';
             }
         });
 
         function selectDay(day) {
             selectedDay = day;
-            if (!useCalendar) {
-                // Lógica para converter o dia da semana em data
-                const today = new Date();
-                const nextDay = new Date(today);
-                nextDay.setDate(today.getDate() + ((7 + (getDayIndex(day) - today.getDay())) % 7));
-                document.getElementById('dayMessage').innerText = `Você escolheu: ${nextDay.toLocaleDateString()}`;
-            } else {
-                document.getElementById('dayMessage').innerText = `Você escolheu: ${day}`;
-            }
+            const today = new Date();
+            const nextDay = new Date(today);
+            nextDay.setDate(today.getDate() + ((7 + (getDayIndex(day) - today.getDay())) % 7));
+            document.getElementById('dayMessage').innerText = `Você escolheu: ${nextDay.toLocaleDateString()}`;
             document.getElementById('confirmDayButton').style.display = 'block';
         }
 
@@ -99,7 +97,11 @@
         }
 
         function confirmDay() {
-            localStorage.setItem('selectedDay', selectedDay);
+            if (selectedDate) {
+                localStorage.setItem('selectedDay', selectedDate);
+            } else {
+                localStorage.setItem('selectedDay', selectedDay);
+            }
             window.location.href = 'chosehour.html';
         }
     </script>
