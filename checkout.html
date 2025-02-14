@@ -1,6 +1,7 @@
 <html>
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         /* Estilos do botão */
         .button-with-icon {
@@ -13,7 +14,8 @@
             letter-spacing: 1px;
             padding: 0 16px;
             text-align: center;
-            width: 50px;
+            width: 100%; /* Botão ocupa toda a largura */
+            max-width: 200px; /* Limita a largura máxima */
             height: 50px;
             font-size: 14px;
             text-transform: uppercase;
@@ -36,6 +38,7 @@
             color: white;
             text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
             transition: 150ms all ease-in-out;
+            margin: 0 auto; /* Centraliza o botão */
         }
         .button-with-icon .icon {
             margin-right: 5px;
@@ -66,7 +69,7 @@
     </style>
 </head>
 <body class="bg-[#181819] flex items-center justify-center min-h-screen">
-    <div class="text-center text-white space-y-6">
+    <div class="text-center text-white space-y-6 w-full px-4">
         <h1 class="text-xl font-bold">Confirme o seu pedido</h1>
         
         <div class="space-y-4">
@@ -143,15 +146,14 @@
         document.getElementById('priceDisplay').innerText = `R$ ${price.toFixed(2)}`;
 
         function confirmOrder() {
-            const message = `
-             » —— ╫  ❲ *CONFIRMAÇÃO DE AGENDAMENTO* ❳   ╫ —— « 
+            const message = `» —— ╫  ❲ *CONFIRMAÇÃO DE AGENDAMENTO* ❳   ╫ —— « 
               
               ✎ *Nome* :\t${clientName}
               ✎ *Data* :\t${selectedDay} às ${selectedHour}                                 
               ✎ *Modelo* :\t${selectedModel}
               ✎ *Serviço* :\t${selectedService}
-              ———————————————
-              *VALOR*: R$ ${price.toFixed(2)}`;
+              ———————————————
+              *VALOR*: R$ ${price.toFixed(2)}`;
             const whatsappLink = `https://wa.me/?text=${encodeURIComponent(message)}`;
             window.open(whatsappLink, '_blank');
         }
