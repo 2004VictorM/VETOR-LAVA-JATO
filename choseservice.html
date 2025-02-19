@@ -59,7 +59,7 @@
         <p id="serviceMessage" class="mt-4 text-red-500"></p>
     </div>
     <script>
-        const modelPrices = {
+const modelPrices = {
             'Hatch': {
                 'Lavagem Externa Básica': 20.00,
                 'Lavagem Externa Completa': 40.00,
@@ -74,11 +74,18 @@
                 'Lavagem Completa + Higienização': 70.00,
                 'Ducha': 15.00
             },
-            'SUV/Pickup': {
+            'SUV/Pickup Pequena': {
                 'Lavagem Externa Básica': 40.00,
                 'Lavagem Externa Completa': 60.00,
                 'Higienização Interna': 35.00,
                 'Lavagem Completa + Higienização': 80.00,
+                'Ducha': 23.00
+            },
+            'SUV/Pickup Médio/Grande': {
+                'Lavagem Externa Básica': 40.00,
+                'Lavagem Externa Completa': 75.00,
+                'Higienização Interna': 50.00,
+                'Lavagem Completa + Higienização': 100.00,
                 'Ducha': 23.00
             },
             'Moto': {
@@ -88,6 +95,7 @@
                 'Lavagem Completa + Higienização': 0.0,
                 'Ducha': 15.00
             }
+
         };
 
         let selectedModel = localStorage.getItem('selectedModel');
