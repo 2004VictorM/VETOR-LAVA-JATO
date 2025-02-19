@@ -76,7 +76,7 @@
             cursor: pointer;
             padding: 5px;
             border: 1px solid #ccc;
-            background-color: rgba(255, 123, 0, 0.9);
+            background-color: rgba(248, 112, 0, 0.9);
             transition: background-color 0.3s;
         }
         .sugestao:hover {
@@ -107,13 +107,16 @@
     </div>
 
     <script>
-        let veiculos = {
-            "Hatch": "Hatchback",
-            "Sedan": "Sedan",
-            "SUV/Pickup Pequena": "SUV/Pickup Pequena",
-            "SUV/Pickup Médio/Grande": "SUV/Pickup Médio/Grande",
-            "Moto": "Moto"
-        };
+        let veiculos = {};
+
+        // Carrega os modelos do arquivo JSON
+        async function carregarModelos() {
+            const response = await fetch('veiculos.json');
+            veiculos = await response.json();
+        }
+
+        // Chama a função para carregar os modelos ao iniciar
+        carregarModelos();
 
         function selectModel(model) {
             document.getElementById("resultado").textContent = `Você escolheu o modelo: ${model}`;
